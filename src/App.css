@@ -13,6 +13,10 @@
   color: #f6c90e;
 }
 
+a {
+  color: #f6c90e !important;
+}
+
 .c1 {
   color: #303841
 }
@@ -41,4 +45,53 @@
   height: 250px;
   background: url("./assets/logo3.png") no-repeat;
   background-size: 250px 250px;
+}
+
+.navbar {
+  background-color: #303841;
+  box-shadow: 0px 2px 2px #3a4750;
+}
+
+.navLogo {
+  width: 30px;
+  height: 30px;
+  background: url("./assets/logo2.png") no-repeat;
+  background-size: 30px 30px;
+}
+
+.navLogo:hover {
+  width: 30px;
+  height: 30px;
+  background: url("./assets/logo3.png") no-repeat;
+  background-size: 30px 30px;
+}
+
+.navText {
+  text-shadow: 4px 4px 8px #3a4750;
+}
+
+.eventCard:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.eventCard {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+
+.Loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  text-align: center;
+  color: #303841
+}
+
+.card-img-top {
+  max-height: 185px
 }
