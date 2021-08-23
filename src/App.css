@@ -17,6 +17,14 @@ a {
   color: #f6c90e !important;
 }
 
+a:hover {
+  text-decoration: none !important;
+}
+
+.link--card {
+  color: #303841 !important;
+}
+
 .c1 {
   color: #303841
 }
@@ -74,7 +82,7 @@ a {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
 
-.eventCard {
+.SkeletonEventCard {
   -webkit-filter: blur(5px);
   -moz-filter: blur(5px);
   -o-filter: blur(5px);
@@ -94,4 +102,84 @@ a {
 
 .card-img-top {
   max-height: 185px
+}
+
+.card--link {
+  color: #f6c90e !important;
+}
+
+
+.card--location {
+  padding: 0 10px 5px !important;
+  font-size: 0.8rem;
+}
+
+.card--link:hover {
+  color:#303841 !important;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.items--flex {
+ display: flex;
+ justify-content: space-between;
+}
+
+/* price container */
+.price {
+  position: relative;
+  display: inline-block;
+}
+
+/* price text */
+.price .price--text {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: 0.8rem;
+
+  /* Position the price text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  /* Fade in price */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* price arrow */
+.price .price--text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the price text when you mouse over the price container */
+.price:hover .price--text {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media only screen and (max-width: 600px) {
+  
+  .input--searchbox {
+    min-width: 300px !important;
+  }
+  
+  .btn--menu {
+    margin: 15px 0;
+  }
+  
 }
