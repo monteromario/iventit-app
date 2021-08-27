@@ -172,6 +172,22 @@ a:hover {
   opacity: 1;
 }
 
+.ico--favStar {
+  color:#555
+}
+
+.ico--favStar:hover {
+  color: #f6c90e
+}
+
+.ico--star {
+  color:#f6c90e
+}
+
+.ico--star:hover {
+  color: #555
+}
+
 @media only screen and (max-width: 600px) {
   
   .input--searchbox {
@@ -180,6 +196,10 @@ a:hover {
   
   .btn--menu {
     margin: 15px 0;
+  }
+
+  .text--navbar {
+    display: none;
   }
   
 }

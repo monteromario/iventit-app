@@ -21,7 +21,7 @@ import Img10 from '../assets/event_10.jpg'
 
 const axios = require('axios').default;
 
-let HomeEvents = () => {
+let Favs = () => {
     
     const [data, setData] = useState(null);
 
@@ -35,16 +35,21 @@ let HomeEvents = () => {
         let jsonData = JSON.parse(updatedData);
         setData(jsonData);
         setLoading(false);
+        console.log(data);
+        console.log(Date(Date.now()))
     }
 
     useEffect(() => {
         if (localStorage.getItem('iventitFavEvents')) {
             let items = JSON.parse(localStorage.getItem('iventitFavEvents'))
             setFavorites(items)
-        } else {}
+        } else {
+            console.log('no data on localstorage')
+        }
         axios.get("https://i-vent-api.herokuapp.com/getEvents")
         .then((r) => {
             updateLocationKey(r.data['@graph']);
+            console.log(favorites)
             })
         .catch((e) => {
             setData(e);
@@ -185,6 +190,7 @@ let HomeEvents = () => {
     }
 
     let handleFavorite = (e) => {
+        console.log(e.target.id)
         if (favorites.indexOf(e.target.id) > -1) {
             let prevFavorites = favorites;
             let newFavorites = prevFavorites.splice(favorites.indexOf(e.target.id), 1);
@@ -252,5 +258,5 @@ let HomeEvents = () => {
     )
 }
 
-export default HomeEvents
+export default Favs
  

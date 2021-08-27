@@ -1,6 +1,6 @@
-import './App.css';
+import '../App.css';
 
-function App() {
+function Map() {
   return (
     <div className="App">
       <header className="App-header">
@@ -15,4 +15,5 @@ function App() {
   );
 }
 
-export default App;
+export default Map;
+
