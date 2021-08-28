@@ -16,7 +16,7 @@ function Navigation() {
                     <small><span className="c4"><i className="fas fa-star ml-3 mr-2"></i></span><a href="/favs" className="text--navbar">Favorites</a></small>
                 </Navbar.Text>
                 <Navbar.Text>
-                    <small><span className="c4"><i className="fas fa-user ml-3 mr-2"></i></span><a href="/login" className="text--navbar">User</a></small>
+                    <small><span className="c4"><i className="fas fa-user ml-3 mr-2"></i></span><a href="/city" className="text--navbar">Madrid</a></small>
                 </Navbar.Text>
             </Navbar.Collapse>
         </Navbar>

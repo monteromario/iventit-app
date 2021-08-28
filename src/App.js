@@ -3,7 +3,7 @@ import Navigation from './components/Navbar'
 import HomeEvents from './components/HomeEvents'
 import Map from './components/Map'
 import Favs from './components/Favs'
-import Login from './components/Login'
+import City from './components/City'
 
 import {
   BrowserRouter as Router,
@@ -23,8 +23,8 @@ function App() {
         <Route path="/favs">
             <Favs />
         </Route>
-        <Route path="/login">
-            <Login />
+        <Route path="/city">
+            <City />
         </Route>
         <Route path="/">
           <HomeEvents />
