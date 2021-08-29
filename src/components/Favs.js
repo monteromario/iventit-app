@@ -84,6 +84,7 @@ let Favs = () => {
             let items = JSON.parse(localStorage.getItem('iventitFavEvents'))
             setFavorites(items)
         }
+        window.location.reload(false);
     }
 
     return(

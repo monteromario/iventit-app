@@ -23,15 +23,13 @@ let Skeleton = () => {
     const [data] = useState([<Card className="SkeletonEventCard" key={randomPicture()}>
                     <Card.Img variant="top" src={randomPicture()} />
                     <Card.Body>
-                    <Card.Title>Card title</Card.Title>
+                    <Card.Title>Lorem ipsum dolor sit amet</Card.Title>
                     <Card.Text>
-                        This is a wider card with supporting text below as a natural lead-in to
-                        additional content. This card has even longer content than the first to
-                        show that equal height action.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed tempor augue, eget facilisis ligula. Aenean ornare ac nibh semper vehicula. Aliquam vestibulum mattis enim vitae auctor. Donec id tellus tortor. Mauris ultricies, metus in tempus consequat, metus nisl rutrum purus, vitae iaculis neque diam euismod ex.
                     </Card.Text>
                     </Card.Body>
                     <Card.Footer>
-                    <small className="text-muted">Last updated 3 mins ago</small>
+                    <small className="text-muted">Lorem ipsum dolor sit amet</small>
                     </Card.Footer>
                 </Card>]);
 
@@ -44,6 +42,8 @@ let Skeleton = () => {
         setTimeout(function(){ setContent([data,data,data,data,data]); }, 2000)
         setTimeout(function(){ setContent([data,data,data,data,data,data]); }, 2500)
         setTimeout(function(){ setContent([data,data,data,data,data,data,data]); }, 3000)
+        setTimeout(function(){ setContent([data,data,data,data,data,data,data,data]); }, 3500)
+        setTimeout(function(){ setContent([data,data,data,data,data,data,data,data,data]); }, 4000)
     }, [data]);
 
     return(
