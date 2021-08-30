@@ -1,21 +1,11 @@
 import { React, useEffect, useState } from 'react';
-import { MapsComponent, LayersDirective, NavigationLineDirective, LayerDirective, Zoom, MarkersDirective, NavigationLine, NavigationLinesDirective, MarkerDirective, Marker, Inject } from '@syncfusion/ej2-react-maps';
+import { MapsComponent, LayersDirective, LayerDirective, Zoom, MarkersDirective, NavigationLine, MarkerDirective, Marker, Inject, MapsTooltip } from '@syncfusion/ej2-react-maps';
 
 import Skeleton from './Skeleton'
 
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
-import Img01 from '../assets/event_01.jpg'
-import Img02 from '../assets/event_02.jpg'
-import Img03 from '../assets/event_03.jpg'
-import Img04 from '../assets/event_04.jpg'
-import Img05 from '../assets/event_05.jpg'
-import Img06 from '../assets/event_06.jpg'
-import Img07 from '../assets/event_07.jpg'
-import Img08 from '../assets/event_08.jpg'
-import Img09 from '../assets/event_09.jpg'
-import Img10 from '../assets/event_10.jpg'
 
 const axios = require('axios').default;
 
@@ -27,18 +17,15 @@ let Map = () => {
 
     const [favorites, setFavorites] = useState([]);
 
-    const [markers, setMarkers] = useState([]);
+    const [selected, setSelected] = useState();
 
-    
-    let generateMarker = (lat, lon, name, id, link) => {
-      return {latitude: lat, longitude: lon, name: name, id: id, link: link}
-    }
+    const [markers, setMarkers] = useState([]);
     
     let generateMarkers = (jsonData) => {
       let markersArray = [];
       jsonData.map(i => {
       if (i.location) {
-        markersArray.push({latitude: i.location.latitude, longitude: i.location.longitude, name: i.title})
+        markersArray.push({latitude: i.location.latitude, longitude: i.location.longitude, name: i.title, link: i.link, id: i.uid})
         }
       })
       return markersArray
@@ -192,6 +179,23 @@ let Map = () => {
             })
     }
 
+    let getEvent = (id) => {
+      axios.get("https://i-vent-api.herokuapp.com/getEvent/"+id)
+                .then((r) => {
+                    updateNewLocationKey(r.data['@graph'][0])
+                    })
+                .catch((e) => {
+                    console.log(e);
+                    })
+    }
+
+    let updateNewLocationKey = (tempData) => {
+          let arrayData = JSON.stringify(tempData);
+          let updatedData = arrayData.replace(/"event-location":/g, "\"eventlocation\":");
+          let jsonData = JSON.parse(updatedData);
+          setSelected(jsonData);
+    }
+
     let filterSearchItems = (e) => {
         if (e.target.value.length === 0) {
             getAllItems()
@@ -202,14 +206,14 @@ let Map = () => {
     }
 
     let handleClic = (e) => {
-      console.log(e.target)
+      getEvent(e.target.id)
     }
 
     return(
         <>
         { (loading) 
             ? (<Skeleton />) 
-            : ( <div className="m-4">
+            : ( <div className="m-4" onClick={handleClic}>
                     <InputGroup className="mb-4 align-content-start flex-wrap justify-content-around">
                         <FormControl
                         placeholder="Find events"
@@ -222,18 +226,25 @@ let Map = () => {
                         <Button variant="outline-secondary" className="btn--menu" onClick={filterFreeItems}>Free</Button>
                         <Button variant="outline-secondary" className="btn--menu" onClick={getAllItems}>All</Button>
                     </InputGroup>
-                    <MapsComponent id="maps" zoomSettings={{ enable: true, toolbars: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset'], zoomFactor: 14 }} centerPosition={{ latitude: 40.41699097723872, longitude: -3.703519356081862 }} onClick={handleClic}>
-                    <Inject services={[Marker, NavigationLine, Zoom]}/>
+                    <MapsComponent id="maps" zoomSettings={{ enable: true, enablePanning: true, mouseWheelZoom: true, doubleClickZoom: true, toolbars: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset'], zoomFactor: 14 }} centerPosition={{ latitude: 40.41699097723872, longitude: -3.703519356081862 }}>
+                    <Inject services={[Marker, NavigationLine, Zoom, MapsTooltip]}/>
                         <LayersDirective>
                             <LayerDirective layerType='OSM'>
                                 <MarkersDirective>
-                                    <MarkerDirective visible={true} height={25} width={25} dataSource={ markers }>
+                                    <MarkerDirective visible={true} height={25} width={25} tooltipSettings={{ visible: true, valuePath: 'link', textStyle: {
+                                        color: 'white',
+                                        fontFamily: 'Verdana',
+                                        fontStyle: 'Sans-serif'
+                                    },
+                                    template: '<a href="${link}" target="_blank" class="link--card"><div style="width:auto; text-align:center; background-color: white; border: 1px solid black; padding-bottom: 5px;padding-top: 5px;padding-left: 5px;padding-right: 5px; font-size: 12px" id="${id}"><span id="${id}">${name}</span></div></a>',
+                                     }} fill='#f6c90e' border={{ color: '#343a40', width: 1 }} dataSource={ markers } >
                                   </MarkerDirective>
                                 </MarkersDirective>
                             </LayerDirective>
                         </LayersDirective>
                     </MapsComponent>
-                    <div>{ JSON.stringify(markers) }</div>
+                    { (selected) ? <div>selected: { selected.title } - {selected.dtstart.substring(8,10)}/{selected.dtstart.substring(5,7)}/{selected.dtstart.substring(0,4)} {selected.time} - { selected.eventlocation }</div> : '' }
+                    <div>markers length: { markers.length }</div>
                 </div>
             ) 
         }
